@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "backbone": "*",
-    "Backbone": "*",
-    "solutionio/backbone": "*"
-  }
-}

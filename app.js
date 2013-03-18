@@ -98,7 +98,8 @@ io.sockets.on('connection', function (socket) {
 
     quizzes[id] = {
       players: [{"id": socket.id, "points": 0}],
-      current_question: 0
+      current_question: 0,
+      points: 0
     }
 
     fn(id);
@@ -127,23 +128,22 @@ io.sockets.on('connection', function (socket) {
 
     question.answers.forEach(function(answer) {
       if (answer.isCorrect) {
-        correctAnswer = answer;
+        correctAnswer = answer.answer;
       }
     })
 
-    var guessedCorrectAnswer = guess.answer === correctAnswer;
-
-    console.log("user guesssed correclty");
+    if (guess.answer === correctAnswer) {
+      quiz.points = quiz.points + 1;
+    }
 
 
     quiz.current_question = quiz.current_question + 1;
     if (quiz.current_question >= questions.length) {
         // Game finished
-        socket.emit('gameOver', {"points": 42});
+        socket.emit('gameOver', {"points": quiz.points});
 
     } else {
         socket.emit('question', questions[quiz.current_question]);
     }
   });
-
 });

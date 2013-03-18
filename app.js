@@ -1,10 +1,11 @@
-
+  
 /**
  * Module dependencies.
  */
 
 var express = require('express')
-  , routes = require('./routes');
+  , routes = require('./routes')
+  , fs = require('fs');
 
 var app = express();
 
@@ -31,6 +32,14 @@ app.configure('production', function(){
 
 app.get('/', function(request, response) {
   response.send('Hello World!');
+});
+
+app.get('/questions/', function(request, response) {
+  fs.readFile('./questions.json',  function(err, data){
+    if(!err){
+      response.send(data);
+    }
+  });
 });
 
 var port = process.env.PORT || 3000;

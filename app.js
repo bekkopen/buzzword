@@ -54,6 +54,9 @@ fs.readFile('./questions.json',  function(err, data){
 //}
 var connections = {};
 
+// { players: [], current_question: 0}
+var quizzes = {};
+
 
 io.sockets.on('connection', function (socket) {
   console.log("new connection");
@@ -61,8 +64,6 @@ io.sockets.on('connection', function (socket) {
   connections[socket.id] = {};
 
   console.log(connections);
-
-  //socket.emit('question', questions[0]);
 
   socket.on("login", function(data, fn) {
     console.log(data)
@@ -89,6 +90,60 @@ io.sockets.on('connection', function (socket) {
 
     fn(users);
 
+  });
+
+  socket.on("createQuiz", function(data, fn) {
+
+    var id = new Date().valueOf();
+
+    quizzes[id] = {
+      players: [{"id": socket.id, "points": 0}],
+      current_question: 0
+    }
+
+    fn(id);
+  })
+
+  socket.on("startQuiz", function(data, fn) {
+
+    var id = data.id;
+
+    var quiz = quizzes[id];
+
+    socket.emit('question', questions[quiz.current_question]);
+  });
+
+  socket.on("answer", function(data, fn) {
+
+    var id = data.id;
+
+    var guess = data.guess;
+
+    var quiz = quizzes[id];
+
+    var question = questions[quiz.current_question];
+
+    var correctAnswer;
+
+    question.answers.forEach(function(answer) {
+      if (answer.isCorrect) {
+        correctAnswer = answer;
+      }
+    })
+
+    var guessedCorrectAnswer = guess.answer === correctAnswer;
+
+    console.log("user guesssed correclty");
+
+
+    quiz.current_question = quiz.current_question + 1;
+    if (quiz.current_question >= questions.length) {
+        // Game finished
+        socket.emit('gameOver', {"points": 42});
+
+    } else {
+        socket.emit('question', questions[quiz.current_question]);
+    }
   });
 
 });

@@ -42,15 +42,10 @@ function LoginController($scope, $location, socket, users) {
 		});
 
 	};
-
-
-	socket.on('question', function(data) {
-		console.log(data);
-	});
 }
 
 
-function LobbyController($scope, socket, users) {
+function LobbyController($scope, $location, socket, users) {
 
 	$scope.nickname = users.me.nickname;
 
@@ -62,10 +57,49 @@ function LobbyController($scope, socket, users) {
 		$scope.users = result;
 	})
 
+	$scope.createQuiz = function() {
+
+		socket.emit("createQuiz", {}, function(result) {
+
+			var id = result;
+
+			$location.path('quiz/' + id);
+		});
+
+	}
+
 }
 
 
-function QuizController($scope, socket) {
+function QuizController($scope, $location, $routeParams, socket, users) {
+
+	$scope.nickname = users.me.nickname;
+
+	$scope.question = {};
+
+	$scope.points = 0;
+
+	socket.emit("startQuiz", {id: $routeParams.id});
+
+	socket.on('question', function(data) {
+		console.log(data);
+
+		$scope.question = data;
+	});
+
+	socket.on('gameOver', function(data) {
+		console.log(data);
+
+		$scope.question = {};
+		$scope.points = data.points;
+	});
+
+	$scope.guessAnswer = function(guess) {
+		console.log(guess);
+
+		socket.emit("answer", {"id": $routeParams.id, "guess": guess});
+	}
+
 
 
 }

@@ -1,0 +1,19 @@
+<article class="span12">
+
+
+	<h1>Quiz</h1>
+
+	<p>Hi {{nickname}}</p>
+	<p>Points: {{points}}</p>
+
+	<form>
+		<label for="answer">{{question.question}}</label>
+
+
+		<div ng-repeat="answer in question.answers" ng-click="guessAnswer(answer)">
+			<button class="btn btn-primary" data-answer="{{answer}}">{{answer.answer}}</button>
+		</div>
+
+	</form>
+
+</article>

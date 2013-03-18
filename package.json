@@ -1,0 +1,10 @@
+{
+    "name": "buzzword",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+      "express": "2.5.8",
+      "less": "1.3.3",
+      "mustache": "0.7.2"
+  	}
+}

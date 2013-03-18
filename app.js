@@ -34,15 +34,23 @@ app.get('/', function(request, response) {
   response.send('Hello World!');
 });
 
-app.get('/questions/', function(request, response) {
-  fs.readFile('./questions.json',  function(err, data){
-    if(!err){
-      response.send(data);
-    }
-  });
-});
-
 var port = process.env.PORT || 3000;
 app.listen(port, function(){
   console.log("Express server listening on port %d", port);
+});
+
+
+
+
+
+var io = require('socket.io').listen(1337);
+var questions;
+fs.readFile('./questions.json',  function(err, data){
+  if(!err){
+    questions = JSON.parse(data);
+  }
+});
+
+io.sockets.on('connection', function (socket) {
+  socket.emit('questions', questions);
 });

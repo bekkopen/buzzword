@@ -52,5 +52,5 @@ fs.readFile('./questions.json',  function(err, data){
 });
 
 io.sockets.on('connection', function (socket) {
-  socket.emit('questions', questions);
+  socket.emit('question', question[Math.floor((Math.random()*questions.length ))]);
 });

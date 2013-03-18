@@ -13,7 +13,8 @@
 		<div ng-repeat="answer in question.answers" ng-click="guessAnswer(answer)">
 			<button class="btn btn-primary" data-answer="{{answer}}">{{answer.answer}}</button>
 		</div>
-
 	</form>
+
+	<a href="#/lobby" ng-show="gameOver">Back to lobby</a>
 
 </article>

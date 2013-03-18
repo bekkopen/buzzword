@@ -92,6 +92,7 @@ function QuizController($scope, $location, $routeParams, socket, users) {
 
 		$scope.question = {};
 		$scope.points = data.points;
+		$scope.gameOver = true;
 	});
 
 	$scope.guessAnswer = function(guess) {

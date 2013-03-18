@@ -8,4 +8,6 @@
 
 npm install
 
+grunt
+
 node app.js

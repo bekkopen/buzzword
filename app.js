@@ -3,11 +3,11 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes')
-  , fs = require('fs')
-  , socketio = require('socket.io')
-  , http = require('http');
+var express = require('express');
+var routes = require('./routes');
+var fs = require('fs');
+var socketio = require('socket.io');
+var http = require('http');
 
 var app = express();
 

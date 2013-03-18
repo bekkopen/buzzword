@@ -11,7 +11,7 @@ var http = require('http');
 
 var app = express();
 
-server = http.createServer(app)
+server = http.createServer(app);
 
 // Configuration
 

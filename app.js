@@ -30,10 +30,6 @@ app.configure('production', function(){
 
 // Routes
 
-app.get('/', function(request, response) {
-  response.send('Hello World!');
-});
-
 app.get('/questions/', function(request, response) {
   fs.readFile('./questions.json',  function(err, data){
     if(!err){

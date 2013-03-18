@@ -49,7 +49,30 @@ fs.readFile('./questions.json',  function(err, data){
   }
 });
 
+
+var connections = {};
+
+
 io.sockets.on('connection', function (socket) {
   console.log("new connection");
+
+  connections[socket.id] = {};
+
+  console.log(connections);
+
   socket.emit('question', questions[0]);
+
+  socket.on("login", function(data, fn) {
+    console.log(data)
+
+    var me = connections[socket.id];
+    var nickname = data.nickname;
+
+    me.nickname = data.nickname;
+
+    console.log(connections);
+
+    fn(true);
+  });
+
 });

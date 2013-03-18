@@ -1,6 +1,5 @@
 buzzword
 ========
 
-buzzword
+npm install
 
-test

@@ -1,18 +1,16 @@
-		{
-			"questions":[
-		    {
-		      "question":"Er Eirik kul?",
-		      "answers":[
-		        {"answer": "Ja", "isCorrect": 1},
-		        {"answer": "Nei"}
-		      ]
-		    },
-		    {
-		      "question":"Er Eivind kul?",
-		      "answers":[
-		        {"answer": "Ja"},
-		        {"answer": "Nei", "isCorrect": 1}
-		      ]
-		    }
-		  ]
-		}
+[
+{
+  "question":"Er Eirik kul?",
+  "answers":[
+    {"answer": "Ja", "isCorrect": 1},
+    {"answer": "Nei"}
+  ]
+},
+{
+  "question":"Er Eivind kul?",
+  "answers":[
+    {"answer": "Ja"},
+    {"answer": "Nei", "isCorrect": 1}
+  ]
+}
+]

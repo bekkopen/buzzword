@@ -5,9 +5,13 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , fs = require('fs');
+  , fs = require('fs')
+  , socketio = require('socket.io')
+  , http = require('http');
 
 var app = express();
+
+server = http.createServer(app)
 
 // Configuration
 
@@ -30,20 +34,14 @@ app.configure('production', function(){
 
 // Routes
 
-app.get('/', function(request, response) {
-  response.send('Hello World!');
-});
-
 var port = process.env.PORT || 3000;
-app.listen(port, function(){
+
+server.listen(port, function(){
   console.log("Express server listening on port %d", port);
 });
 
 
-
-
-
-var io = require('socket.io').listen(1337);
+var io = socketio.listen(server);
 var questions;
 fs.readFile('./questions.json',  function(err, data){
   if(!err){
@@ -52,5 +50,6 @@ fs.readFile('./questions.json',  function(err, data){
 });
 
 io.sockets.on('connection', function (socket) {
-  socket.emit('question', question[Math.floor((Math.random()*questions.length ))]);
+  console.log("new connection");
+  socket.emit('question', questions[0]);
 });

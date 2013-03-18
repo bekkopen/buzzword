@@ -3,9 +3,9 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes')
-  , fs = require('fs');
+var express = require('express');
+var routes = require('./routes');
+var fs = require('fs');
 
 var app = express();
 
@@ -38,10 +38,6 @@ var port = process.env.PORT || 3000;
 app.listen(port, function(){
   console.log("Express server listening on port %d", port);
 });
-
-
-
-
 
 var io = require('socket.io').listen(1337);
 var questions;

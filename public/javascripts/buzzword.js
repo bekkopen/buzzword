@@ -54,6 +54,14 @@ function LobbyController($scope, socket, users) {
 
 	$scope.nickname = users.me.nickname;
 
+	$scope.users = [];
+
+	socket.emit("users", {}, function(result) {
+		console.log("result: " +result);
+
+		$scope.users = result;
+	})
+
 }
 
 

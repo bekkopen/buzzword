@@ -5,4 +5,14 @@
 
 	<p>Hi {{nickname}}</p>
 
+	<ul ng-repeat="{{users}}"></ul>
+
+	<ul ng-repeat="user in users">
+        <li>@{{user.nickname}}</li>
+    </ul>
+
+    <div class="form-actions">
+		<button type="submit" class="btn btn-primary">Enter lobby</button>
+	</div>
+
 </article>

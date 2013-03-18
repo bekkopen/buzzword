@@ -1,4 +1,4 @@
-  
+
 /**
  * Module dependencies.
  */
@@ -49,7 +49,9 @@ fs.readFile('./questions.json',  function(err, data){
   }
 });
 
-
+// {
+// id: {nickname: @nickname}
+//}
 var connections = {};
 
 
@@ -60,7 +62,7 @@ io.sockets.on('connection', function (socket) {
 
   console.log(connections);
 
-  socket.emit('question', questions[0]);
+  //socket.emit('question', questions[0]);
 
   socket.on("login", function(data, fn) {
     console.log(data)
@@ -73,6 +75,20 @@ io.sockets.on('connection', function (socket) {
     console.log(connections);
 
     fn(true);
+  });
+
+  socket.on("users", function(data, fn) {
+
+    console.log("wants users: " +data);
+
+    var users = [];
+
+    for (var connection in connections) {
+      users.push(connections[connection]);
+    }
+
+    fn(users);
+
   });
 
 });
